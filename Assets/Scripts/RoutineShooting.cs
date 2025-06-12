@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class InstantiateBulletsShooting : MonoBehaviour
+public class RoutineShooting : MonoBehaviour
 {
     [SerializeField] private float _number;
     [SerializeField] private float _timeWaitShooting;
@@ -11,10 +11,10 @@ public class InstantiateBulletsShooting : MonoBehaviour
 
     private void Start()
     {
-        StartCoroutine(ShootingWorker());
+        StartCoroutine(Shooting());
     }
 
-    private IEnumerator ShootingWorker()
+    private IEnumerator Shooting()
     {
         bool canWork = true;
 
@@ -24,7 +24,8 @@ public class InstantiateBulletsShooting : MonoBehaviour
             var _newBullet = Instantiate(_prefab, transform.position + _vector3direction, Quaternion.identity);
             _newBullet.GetComponent<Rigidbody>().transform.up = _vector3direction;
             _newBullet.GetComponent<Rigidbody>().velocity = _vector3direction * _number;
-            yield return new WaitForSeconds(_timeWaitShooting);
         }
+
+        yield return new WaitForSeconds(_timeWaitShooting);
     }
 }

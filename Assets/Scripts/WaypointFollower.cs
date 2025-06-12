@@ -1,22 +1,11 @@
 using UnityEngine;
 
-public class GoPlaces : MonoBehaviour
+public class WaypointFollower : MonoBehaviour
 {
     [SerializeField] private float _speed;
-    [SerializeField] private Transform _allPlacespoint;
+    [SerializeField] private Transform[] _arrayPlaces;
 
-    private Transform[] _arrayPlaces;
     private int _currentWaypointIndex = 0;
-
-    private void Start()
-    {
-        _arrayPlaces = new Transform[_allPlacespoint.childCount];
-
-        for (int i = 0; i < _allPlacespoint.childCount; i++)
-        {
-            _arrayPlaces[i] = _allPlacespoint.GetChild(i).GetComponent<Transform>();
-        }
-    }
 
     private void Update()
     {
@@ -25,11 +14,11 @@ public class GoPlaces : MonoBehaviour
 
         if (transform.position == pointByNumberInArray.position)
         {
-            NextPlaceTakerLogic();
+            MoveToNextWaypoint();
         }
     }
 
-    public Vector3 NextPlaceTakerLogic()
+    public Vector3 MoveToNextWaypoint()
     {
         _currentWaypointIndex++;
 

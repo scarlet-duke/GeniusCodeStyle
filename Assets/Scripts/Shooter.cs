@@ -22,15 +22,12 @@ public class Shooter : MonoBehaviour
 
     private IEnumerator Shooting()
     {
-        bool canWork = true;
-
-        while (canWork)
+        while (_target != null)
         {
             Vector3 direction = (_target.position - transform.position).normalized;
             Bullet newBullet = Instantiate(_bulletPrefab, transform.position + direction, Quaternion.identity);
             newBullet.Initialize(direction, _bulletSpeed);
+            yield return _shootingWait;
         }
-
-        yield return new WaitForSeconds(_shootingDelay);
     }
 }
